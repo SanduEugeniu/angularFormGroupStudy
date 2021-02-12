@@ -1,0 +1,73 @@
+<div class="container">
+  <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Angular Forms</h1>
+
+    <div class="form-control">
+      <label>Email</label>
+      <input type="text" placeholder="Email" formControlName="email">
+
+      <div
+        *ngIf="form.get('email').invalid && form.get('email').touched"
+        class="validation"
+      >
+        <small *ngIf="form.get('email').errors.required">
+Introduceti adresa email        </small>
+
+        <small *ngIf="form.get('email').errors.email">
+Introduceti mail corect        </small>
+
+        <small *ngIf="form.get('email').errors.restrictedEmail">
+          Email {{form.get('email').value}} Interzis
+        </small>
+
+        <small *ngIf="form.get('email').errors.uniqEmail">
+          Email {{form.get('email').value}} Ocupat
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label>Пароль</label>
+      <input type="password" placeholder="password" formControlName="password">
+
+      <div
+        *ngIf="form.get('password').invalid && form.get('password').touched"
+        class="validation"
+      >
+        <small *ngIf="form.get('password').errors.required">
+          Introduceti parola
+        </small>
+
+        <small *ngIf="form.get('password').errors.minlength">
+          Potola trebui sa fie de cel putin {{form.get('password').errors.minlength.requiredLength}} caractere.
+        </small>
+      </div>
+    </div>
+
+    <div class="card" formGroupName="address">
+      <h2>Adresa</h2>
+
+      <div class="form-control">
+        <label>Tara</label>
+
+        <select formControlName="country">
+          <option value="md">Moldova</option>
+          <option value="pl">Polonia</option>
+          <option value="ro">Romania</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <input type="text" formControlName="city" placeholder="Oras">
+      </div>
+
+      <button class="btn" type="button" (click)="setCapital()">Alege Capitala</button>
+    </div>
+
+
+    <button class="btn" type="submit" [disabled]="form.invalid || form.pending">Trimite</button>
+  </form>
+</div>
+
+
+
